@@ -1,6 +1,6 @@
 # _Serverless Challenge_ (WIP)
 
-> Solução AWS serverless para o processo seletivo da Stefanini.<br><br> > _Desafio original disponível em: https://github.com/dornellas13/serverless-challenge_
+> Solução AWS serverless para o processo seletivo da Stefanini.<br><br> _Desafio original disponível em: https://github.com/dornellas13/serverless-challenge_
 
 ## Decisões
 
