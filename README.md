@@ -16,17 +16,27 @@ Como foi solicitado que apenas uma função lambda permitisse as operações de 
 
 Por ser flexível a muitos provedores serverless e permitir o provisionamento "programável" de recursos das diversas nuvens, o Serverless Framework foi escolhido para o deploy da solução desenvolvida.
 
-## Evidências
+## Uso e evidências
 
 > A solução está disponível para testes através da URL base **_`PREENCHER AQUI`_** e pode ser utilizada como uma REST API.
 
-| Método   | Endpoint         | _Payload_                       | Descrição                                                      |
-| -------- | ---------------- | ------------------------------- | -------------------------------------------------------------- |
-| `POST`   | `/employee`      | _Body em JSON_                  | Cadastra um funcionário. O ID criado no registro é retornado.  |
-| `GET`    | `/employee/{id}` | _Path parameter_                | Consulta os dados de um funcionário, dado o seu ID.            |
-| `GET`    | `/employee`      |                                 | Retorna todos os funcionários cadastrados.                     |
-| `PUT`    | `/employee/{id}` | _Path parameter e body em JSON_ | Atualiza o cadastro completo de um funcionário, dado o seu ID. |
-| `DELETE` | `/employee/{id}` | _Path parameter_                | Remove o cadastro de um funcionário, dado o seu ID.            |
+| Método   | Endpoint         | _Payload_                         | Descrição                                                        |
+| -------- | ---------------- | --------------------------------- | ---------------------------------------------------------------- |
+| `POST`   | `/employee`      | _Body\* em JSON_                  | Cadastra um funcionário. O ID criado no registro será retornado. |
+| `GET`    | `/employee/{id}` | _Path parameter_                  | Consulta os dados de um funcionário, dado o seu ID.              |
+| `GET`    | `/employee`      |                                   | Retorna todos os funcionários cadastrados.                       |
+| `PUT`    | `/employee/{id}` | _Path parameter e body\* em JSON_ | Atualiza o cadastro completo de um funcionário, dado o seu ID.   |
+| `DELETE` | `/employee/{id}` | _Path parameter_                  | Remove o cadastro de um funcionário, dado o seu ID.              |
+
+### \*Exemplo de _body_ em JSON que deve ser passado a alguns endpoints:
+
+```json
+{
+    "nome": "William Gonçalves",
+    "idade": 35,
+    "cargo": "Desenvolvedor de software"
+}
+```
 
 **_TODO_** - _incluir imagens dos testes dos endpoints e das respostas, bem como do banco de dados na AWS._
 
@@ -41,4 +51,9 @@ Por ser flexível a muitos provedores serverless e permitir o provisionamento "p
 
 ## Observações
 
-Embora a solução seja uma "prova de conceito" ao desafio, na maioria das vezes não é recomendado disponibilizar uma API para a gestão de recursos atrás de uma ou mais funções lambda. Dependendo do uso da API pode não ser o modelo ideal de arquitetura, o custo das execuções de tais funções pode se tornar muito oneroso e o cliente pode experimentar um delay maior no processamento de uma requisição, por exemplo em "cold starts" dependendo da configuração.
+1. Lembrando, o identificador do funcionário será gerado e atribuído no momento de sua criação e não deve ser passado no body JSON. O identificador é gerado através da biblioteca `uuid`, portanto é um identificador único do tipo _string_.
+2. Para testar os endpoints criados na AWS, você pode usar as aplicações Postman ou Insomnia. Há também plataformas do tipo, para testes de endpoints, que rodam diretamente navegador.
+
+## Importante
+
+Embora a solução seja uma "prova de conceito" ao desafio, na maioria das vezes não é recomendado disponibilizar uma API para a gestão de recursos atrás de uma ou mais funções lambda. Dependendo do uso da API pode não ser o modelo ideal de arquitetura, o custo das execuções de tais funções pode se tornar muito oneroso e o cliente pode experimentar um delay maior no processamento de uma requisição, por exemplo em "cold starts" dependendo da configuração. Caso use esta solução como estudo/inspiração, leve esses pontos em consideração ao planejar soluções serverless que precisarão ser produtivas.
