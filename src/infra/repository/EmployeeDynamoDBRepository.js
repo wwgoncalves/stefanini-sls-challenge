@@ -1,6 +1,12 @@
-const { DynamoDBClient, PutItemCommand } = require("@aws-sdk/client-dynamodb");
-const { marshall } = require("@aws-sdk/util-dynamodb");
+const {
+    DynamoDBClient,
+    PutItemCommand,
+    GetItemCommand,
+    ScanCommand,
+} = require("@aws-sdk/client-dynamodb");
+const { marshall, unmarshall } = require("@aws-sdk/util-dynamodb");
 const { v4: uuidv4 } = require("uuid");
+const Employee = require("../../core/entity/Employee");
 
 const region = process.env.DYNAMODB_EMPLOYEE_TABLE_REGION;
 const tableName = process.env.DYNAMODB_EMPLOYEE_TABLE_NAME;
@@ -29,5 +35,49 @@ module.exports = class EmployeeDynamoDBRepository {
 
         await this.#client.send(new PutItemCommand(input));
         return employee;
+    }
+
+    async findById(id) {
+        const input = {
+            Key: marshall({ id }),
+            TableName: tableName,
+        };
+
+        const output = await this.#client.send(new GetItemCommand(input));
+        const employeeInfo = unmarshall(output.Item);
+        return new Employee(
+            employeeInfo.id,
+            employeeInfo.name,
+            employeeInfo.age,
+            employeeInfo.position
+        );
+    }
+
+    async findAll() {
+        const employees = [];
+        const input = {
+            TableName: tableName,
+        };
+
+        let shouldScan = true;
+        do {
+            const output = await this.#client.send(new ScanCommand(input));
+            output.Items.forEach((item) => {
+                const employeeInfo = unmarshall(item);
+
+                employees.push(
+                    new Employee(
+                        employeeInfo.id,
+                        employeeInfo.name,
+                        employeeInfo.age,
+                        employeeInfo.position
+                    )
+                );
+            });
+
+            shouldScan = output.LastEvaluatedKey !== undefined;
+        } while (shouldScan);
+
+        return employees;
     }
 };

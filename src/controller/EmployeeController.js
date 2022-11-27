@@ -1,4 +1,6 @@
 const RegisterEmployee = require("../core/usecase/RegisterEmployee");
+const FindEmployee = require("../core/usecase/FindEmployee");
+const FetchAllEmployees = require("../core/usecase/FetchAllEmployees");
 
 module.exports = class EmployeeController {
     #employeeRepository;
@@ -8,12 +10,11 @@ module.exports = class EmployeeController {
     }
 
     async createEmployee(body) {
-        const bodyObject = JSON.parse(body);
         const registerEmployee = new RegisterEmployee(this.#employeeRepository);
         const employee = await registerEmployee.execute(
-            bodyObject.nome,
-            bodyObject.idade,
-            bodyObject.cargo
+            body.nome,
+            body.idade,
+            body.cargo
         );
 
         return {
@@ -22,5 +23,34 @@ module.exports = class EmployeeController {
             idade: employee.age,
             cargo: employee.position,
         };
+    }
+
+    async findEmployee(pathParams) {
+        const findEmployee = new FindEmployee(this.#employeeRepository);
+        const employeeId = pathParams.id;
+        const employee = await findEmployee.execute(employeeId);
+
+        return {
+            id: employee.id,
+            nome: employee.name,
+            idade: employee.age,
+            cargo: employee.position,
+        };
+    }
+
+    async fetchEmployees() {
+        const fetchAllEmployees = new FetchAllEmployees(
+            this.#employeeRepository
+        );
+        let employees = await fetchAllEmployees.execute();
+
+        employees = employees.map((employee) => ({
+            id: employee.id,
+            nome: employee.name,
+            idade: employee.age,
+            cargo: employee.position,
+        }));
+
+        return employees;
     }
 };

@@ -17,10 +17,21 @@ module.exports.handle = async (event) => {
     try {
         switch (event.requestContext.http.method) {
             case "POST":
-                const employeeCreated = await employeeController.createEmployee(
-                    event.body
+                const employee = await employeeController.createEmployee(
+                    JSON.parse(event.body)
                 );
-                return buildResponseObject(201, employeeCreated);
+                return buildResponseObject(201, employee);
+
+            case "GET":
+                if (event.pathParameters && event.pathParameters.id) {
+                    const employee = await employeeController.findEmployee(
+                        event.pathParameters
+                    );
+                    return buildResponseObject(200, employee);
+                } else {
+                    const employees = await employeeController.fetchEmployees();
+                    return buildResponseObject(200, employees || []);
+                }
         }
     } catch (error) {
         return buildResponseObject(400, {

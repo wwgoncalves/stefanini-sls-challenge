@@ -31,6 +31,12 @@ functions:
             - httpApi:
                   path: /employee
                   method: post
+            - httpApi:
+                  path: /employee/{id}
+                  method: get
+            - httpApi:
+                  path: /employee
+                  method: get
 
 resources:
     Resources:

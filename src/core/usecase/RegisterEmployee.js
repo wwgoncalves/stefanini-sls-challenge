@@ -8,8 +8,8 @@ module.exports = class RegisterEmployee {
     }
 
     async execute(name, age, position) {
-        const employeeID = this.#employeeRepository.getNextId();
-        const employee = new Employee(employeeID, name, age, position);
+        const employeeId = this.#employeeRepository.getNextId();
+        const employee = new Employee(employeeId, name, age, position);
 
         return this.#employeeRepository.save(employee);
     }
