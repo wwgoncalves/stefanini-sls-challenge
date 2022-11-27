@@ -18,7 +18,7 @@ Por ser flexível a muitos provedores serverless e permitir o provisionamento "p
 
 ## Uso e evidências
 
-> A solução está disponível para testes através da URL base **_`PREENCHER AQUI`_** e pode ser utilizada como uma REST API.
+> A solução está disponível para testes através da URL base `https://86u8vj4102.execute-api.sa-east-1.amazonaws.com` e pode ser utilizada como uma REST API.
 
 | Método   | Endpoint         | _Payload_                         | Descrição                                                        |
 | -------- | ---------------- | --------------------------------- | ---------------------------------------------------------------- |
