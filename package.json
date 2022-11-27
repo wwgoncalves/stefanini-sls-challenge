@@ -8,7 +8,7 @@
     },
     "scripts": {
         "predeploy": "npm uninstall jest @types/jest",
-        "deploy": "serverless deploy -v",
+        "deploy": "serverless deploy --verbose",
         "postdeploy": "npm install jest @types/jest --save-dev",
         "remove": "serverless remove",
         "test": "jest ./test"
@@ -25,6 +25,8 @@
     },
     "homepage": "https://github.com/wwgoncalves/stefanini-sls-challenge#readme",
     "dependencies": {
+        "@aws-sdk/client-dynamodb": "^3.216.0",
+        "@aws-sdk/util-dynamodb": "^3.216.0",
         "uuid": "^9.0.0"
     },
     "devDependencies": {

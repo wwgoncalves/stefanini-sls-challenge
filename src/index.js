@@ -1,7 +1,7 @@
 "use strict";
 
 const EmployeeController = require("./controller/EmployeeController");
-const EmployeeMemoryRepository = require("./infra/repository/EmployeeMemoryRepository"); // TODO: change the repository to DynamoDB
+const EmployeeDynamoDBRepository = require("./infra/repository/EmployeeDynamoDBRepository");
 
 const buildResponseObject = (statusCode, body) => {
     return {
@@ -11,7 +11,7 @@ const buildResponseObject = (statusCode, body) => {
 };
 
 module.exports.handle = async (event) => {
-    const employeeRepository = new EmployeeMemoryRepository(); // TODO: change the repository to DynamoDB
+    const employeeRepository = new EmployeeDynamoDBRepository();
     const employeeController = new EmployeeController(employeeRepository);
 
     try {

@@ -3,7 +3,7 @@ const { v4: uuidv4 } = require("uuid");
 module.exports = class EmployeeMemoryRepository {
     #employees = [];
 
-    getNextID() {
+    getNextId() {
         return uuidv4();
     }
 

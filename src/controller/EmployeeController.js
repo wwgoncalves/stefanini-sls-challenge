@@ -8,11 +8,12 @@ module.exports = class EmployeeController {
     }
 
     async createEmployee(body) {
+        const bodyObject = JSON.parse(body);
         const registerEmployee = new RegisterEmployee(this.#employeeRepository);
         const employee = await registerEmployee.execute(
-            body.nome,
-            body.idade,
-            body.cargo
+            bodyObject.nome,
+            bodyObject.idade,
+            bodyObject.cargo
         );
 
         return {
