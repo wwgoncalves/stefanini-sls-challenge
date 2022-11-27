@@ -46,13 +46,14 @@ Por ser flexível a muitos provedores serverless e permitir o provisionamento "p
 
 1. Ter uma conta na AWS;
 2. Instalar globalmente o Serverless Framework, por exemplo através do comando `npm install -g serverless` (`sudo` talvez seja requido);
-3. Criar um usuário na AWS para o uso do Serverless Framework e registrar suas credenciais através do último, com o comando **_`PREENCHER AQUI`_**;
+3. Criar um usuário na AWS para o uso do Serverless Framework e registrar suas credenciais nele, de maneira parecida ao comando `serverless config credentials -o --provider aws --key=ACCESS_KEY_ID --secret SECRET_ACCESS_KEY`, substituindo as informações conforme fornecidas pela AWS;
 4. Após o clone e dentro do diretório deste projeto, instalar este projeto com o comando `npm install`;
    4.1. Se desejado, após a instalação, testes unitários e de integração básicos podem ser executados através do comando `npm test`.
-5. Revisar e/ou adaptar, através do arquivo `serverless.yml`, as variáveis de ambiente e os recursos configurados para o provisionamento no deploy;
-6. Implantar a solução através do comando `npm run deploy`;
-7. Testar os endpoints disponibilizados pela solução;
-8. Após os testes, a remoção da função lambda e dos outros recursos provisionados na AWS pode ser feita através do comando `npm run remove`.
+5. Revisar e/ou adaptar, via arquivo _serverless.yml_, as variáveis de ambiente, os endpoints e os recursos configurados para o provisionamento no deploy;
+6. Validar o arquivo _serverless.yml_ e confirmar a configuração através do comando `serverless` (passo necessário apenas antes do primeiro deploy);
+7. Implantar a solução através do comando `npm run deploy`;
+8. Testar os endpoints disponibilizados pela solução, que são informados pelo Serverless Framework ao fim do processo de deploy;
+9. Após os testes, a remoção da função lambda e dos outros recursos provisionados na AWS pode ser feita através do comando `npm run remove`.
 
 ## Observações
 
