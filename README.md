@@ -38,6 +38,8 @@ Por ser flexível a muitos provedores serverless e permitir o provisionamento "p
 }
 ```
 
+### Evidências do teste da solução
+
 **_TODO_** - _incluir imagens dos testes dos endpoints e das respostas, bem como do banco de dados na AWS._
 
 ## Como rodar este projeto
@@ -46,8 +48,9 @@ Por ser flexível a muitos provedores serverless e permitir o provisionamento "p
 2. Instalar o Serverless Framework, por exemplo através do comando `npm install -g serverless`;
 3. Criar um usuário na AWS para o uso do Serverless Framework e registrar suas credenciais através do último, com o comando **_`PREENCHER AQUI`_**;
 4. Revisar e/ou adaptar, através do arquivo `serverless.yml`, as variáveis de ambiente e os recursos configurados para o provisionamento no deploy;
-5. Implantar a solução através do comando `serverless deploy`;
-6. Testar os endpoints disponibilizados pela solução.
+5. Implantar a solução através do comando `npm run deploy`;
+6. Testar os endpoints disponibilizados pela solução;
+7. Após os testes, a remoção da função lambda e dos outros recursos provisionados na AWS pode ser feita através do comando `npm run remove`.
 
 ## Observações
 
