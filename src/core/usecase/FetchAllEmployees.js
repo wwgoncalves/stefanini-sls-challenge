@@ -6,7 +6,6 @@ module.exports = class FetchAllEmployees {
     }
 
     async execute() {
-        const employees = await this.#employeeRepository.findAll();
-        return employees;
+        return this.#employeeRepository.findAll();
     }
 };

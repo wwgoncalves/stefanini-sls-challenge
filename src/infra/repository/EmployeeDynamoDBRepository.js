@@ -3,6 +3,7 @@ const {
     PutItemCommand,
     GetItemCommand,
     ScanCommand,
+    UpdateItemCommand,
 } = require("@aws-sdk/client-dynamodb");
 const { marshall, unmarshall } = require("@aws-sdk/util-dynamodb");
 const { v4: uuidv4 } = require("uuid");
@@ -79,5 +80,33 @@ module.exports = class EmployeeDynamoDBRepository {
         } while (shouldScan);
 
         return employees;
+    }
+
+    async update(employee) {
+        const input = {
+            Key: marshall({ id: employee.id }),
+            TableName: tableName,
+            UpdateExpression: "SET #name = :n, age = :a, #position = :p", // All fields are replaced
+            ExpressionAttributeNames: {
+                // Because "name" and "position" are DynamoDB reserved words
+                "#name": "name",
+                "#position": "position",
+            },
+            ExpressionAttributeValues: {
+                ":n": marshall(employee.name),
+                ":a": marshall(employee.age),
+                ":p": marshall(employee.position),
+            },
+            ReturnValues: "ALL_NEW",
+        };
+
+        const output = await this.#client.send(new UpdateItemCommand(input));
+        const employeeInfo = unmarshall(output.Attributes);
+        return new Employee(
+            employeeInfo.id,
+            employeeInfo.name,
+            employeeInfo.age,
+            employeeInfo.position
+        );
     }
 };

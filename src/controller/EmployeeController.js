@@ -1,6 +1,7 @@
 const RegisterEmployee = require("../core/usecase/RegisterEmployee");
 const FindEmployee = require("../core/usecase/FindEmployee");
 const FetchAllEmployees = require("../core/usecase/FetchAllEmployees");
+const UpdateEmployee = require("../core/usecase/UpdateEmployee");
 
 module.exports = class EmployeeController {
     #employeeRepository;
@@ -52,5 +53,22 @@ module.exports = class EmployeeController {
         }));
 
         return employees;
+    }
+
+    async updateEmployee(pathParams, body) {
+        const updateEmployee = new UpdateEmployee(this.#employeeRepository);
+        const employee = await updateEmployee.execute(
+            pathParams.id,
+            body.nome,
+            body.idade,
+            body.cargo
+        );
+
+        return {
+            id: employee.id,
+            nome: employee.name,
+            idade: employee.age,
+            cargo: employee.position,
+        };
     }
 };

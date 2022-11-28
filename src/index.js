@@ -30,8 +30,22 @@ module.exports.handle = async (event) => {
                     return buildResponseObject(200, employee);
                 } else {
                     const employees = await employeeController.fetchEmployees();
-                    return buildResponseObject(200, employees || []);
+                    return buildResponseObject(200, employees);
                 }
+
+            case "PUT":
+                if (
+                    event.pathParameters &&
+                    event.pathParameters.id &&
+                    event.body
+                ) {
+                    const employee = await employeeController.updateEmployee(
+                        event.pathParameters,
+                        JSON.parse(event.body)
+                    );
+                    return buildResponseObject(200, employee);
+                }
+                break;
         }
     } catch (error) {
         return buildResponseObject(400, {

@@ -37,6 +37,9 @@ functions:
             - httpApi:
                   path: /employee
                   method: get
+            - httpApi:
+                  path: /employee/{id}
+                  method: put
 
 resources:
     Resources:
