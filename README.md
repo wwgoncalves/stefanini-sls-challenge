@@ -1,6 +1,6 @@
-# _Serverless Challenge_ (WIP)
+# _Serverless Challenge_
 
-> Solução AWS serverless para o processo seletivo da Stefanini.<br><br> _Desafio original disponível em: https://github.com/dornellas13/serverless-challenge_
+> Solução serverless AWS para o processo seletivo da Stefanini.<br><small>_O desafio proposto está disponível em: https://github.com/dornellas13/serverless-challenge_</small>
 
 ## Decisões
 
@@ -16,21 +16,20 @@ Como foi solicitado que apenas uma função lambda permitisse as operações de 
 
 Por ser flexível a muitos provedores serverless e permitir o provisionamento "programável" de recursos das diversas nuvens, o Serverless Framework foi escolhido para o deploy da solução desenvolvida.
 
-## Uso e evidências
+## Utilização da solução e evidências
 
-> A solução está disponível para testes através da URL base `https://86u8vj4102.execute-api.sa-east-1.amazonaws.com` e pode ser utilizada como uma REST API.
+> A solução está disponível para testes e pode ser utilizada como uma REST API através do URL base `https://86u8vj4102.execute-api.sa-east-1.amazonaws.com`
 
-| Método   | Endpoint         | _Payload_                         | Descrição                                                        |
-| -------- | ---------------- | --------------------------------- | ---------------------------------------------------------------- |
-| `POST`   | `/employee`      | _Body\* em JSON_                  | Cadastra um funcionário. O ID criado no registro será retornado. |
-| `GET`    | `/employee/{id}` | _Path parameter_                  | Consulta os dados de um funcionário, dado o seu ID.              |
-| `GET`    | `/employee`      |                                   | Retorna todos os funcionários cadastrados.                       |
-| `PUT`    | `/employee/{id}` | _Path parameter e body\* em JSON_ | Atualiza o cadastro completo de um funcionário, dado o seu ID.   |
-| `DELETE` | `/employee/{id}` | _Path parameter_                  | Remove o cadastro de um funcionário, dado o seu ID.              |
-
-### \*Exemplo de _body_ em JSON que deve ser passado a alguns endpoints:
+| Método   | Endpoint         | _Payload_                                      | Descrição                                                        |
+| -------- | ---------------- | ---------------------------------------------- | ---------------------------------------------------------------- |
+| `POST`   | `/employee`      | _Body em JSON_ <sup>[*]</sup>                  | Cadastra um funcionário. O ID criado no registro será retornado. |
+| `GET`    | `/employee/{id}` | _Path parameter_                               | Consulta os dados de um funcionário, dado o seu ID.              |
+| `GET`    | `/employee`      |                                                | Retorna todos os funcionários cadastrados.                       |
+| `PUT`    | `/employee/{id}` | _Path parameter e body em JSON_ <sup>[*]</sup> | Atualiza o cadastro completo de um funcionário, dado o seu ID.   |
+| `DELETE` | `/employee/{id}` | _Path parameter_                               | Remove o cadastro de um funcionário, dado o seu ID.              |
 
 ```json
+// [*] - Exemplo de body em JSON que deve ser passado a alguns endpoints:
 {
     "nome": "William Gonçalves",
     "idade": 35,
@@ -38,9 +37,23 @@ Por ser flexível a muitos provedores serverless e permitir o provisionamento "p
 }
 ```
 
-### Evidências do teste da solução
+### Evidências da solução em funcionamento
 
-**_TODO_** - _incluir imagens dos testes dos endpoints e das respostas, bem como do banco de dados na AWS._
+**Inclusão do funcionário:**
+<img alt="Screenshot" title="Inclusão do funcionário" src="screenshots/inclusão.png" />
+
+**Busca do funcionário pelo seu id:**
+<img alt="Screenshot" title="Busca do funcionário" src="screenshots/busca.png" />
+
+**Busca de todos os funcionários, após inclusão de um novo funcionário:**
+<img alt="Screenshot" title="Busca de todos os funcionários" src="screenshots/busca por todos.png" />
+
+**Atualização das informações de um funcionário:**
+<img alt="Screenshot" title="Atualização do funcionário" src="screenshots/atualização.png" />
+
+**Removação do funcionário e busca após remoção:**
+<img alt="Screenshot" title="Remoção do funcionário" src="screenshots/remoção.png" />
+<img alt="Screenshot" title="Busca por funcionário removido" src="screenshots/busca após remoção.png" />
 
 ## Como implantar este projeto na AWS
 
@@ -57,9 +70,11 @@ Por ser flexível a muitos provedores serverless e permitir o provisionamento "p
 
 ## Observações
 
-1. Lembrando, o identificador do funcionário será gerado e atribuído no momento de sua criação e não deve ser passado no body JSON. O identificador é gerado através da biblioteca `uuid`, portanto é um identificador único do tipo _string_.
+1. O identificador do funcionário ou é gerado e atribuído no momento de sua criação, ou precisa ser informado no URL para algumas requisições (ver endpoints acima), portanto nunca precisará ser passado nos corpos de requisições como JSON.
 2. Para testar os endpoints criados na AWS, você pode usar as aplicações Postman ou Insomnia. Há também plataformas do tipo, para testes de endpoints, que rodam diretamente navegador.
 
 ## Importante
 
-Embora a solução seja uma "prova de conceito" ao desafio, na maioria das vezes não é recomendado disponibilizar uma API para a gestão de recursos atrás de uma ou mais funções lambda. Dependendo do uso da API pode não ser o modelo ideal de arquitetura, o custo das execuções de tais funções pode se tornar muito oneroso e o cliente pode experimentar um delay maior no processamento de uma requisição, por exemplo em "cold starts" dependendo da configuração. Caso use esta solução como estudo/inspiração, leve esses pontos em consideração ao planejar soluções serverless que precisarão ser produtivas.
+Embora a solução seja uma "prova de conceito" ao desafio, na maioria das vezes não é recomendado disponibilizar uma API para a gestão de recursos atrás de uma ou mais funções lambda. Isto porque, dependendo do uso da API, pode não ser o modelo ideal de arquitetura. Por exemplo, o custo das execuções de tais funções pode se tornar muito oneroso e o cliente pode experimentar um delay maior no processamento de uma requisição, como em "cold starts" dependendo da configuração.
+
+Caso use esta solução como estudo/inspiração, leve esses pontos em consideração ao planejar soluções serverless que precisarão ser produtivas.
