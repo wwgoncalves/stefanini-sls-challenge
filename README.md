@@ -1,6 +1,6 @@
 # _Serverless Challenge_
 
-> Solução serverless AWS para o processo seletivo da Stefanini.<br><small>_O desafio proposto está disponível em: https://github.com/dornellas13/serverless-challenge_</small>
+> Solução serverless AWS para o processo seletivo da Stefanini.<br><br>_O desafio proposto está disponível em: https://github.com/dornellas13/serverless-challenge_
 
 ## Decisões
 
@@ -18,24 +18,26 @@ Por ser flexível a muitos provedores serverless e permitir o provisionamento "p
 
 ## Utilização da solução e evidências
 
-> A solução está disponível para testes e pode ser utilizada como uma REST API através do URL base `https://86u8vj4102.execute-api.sa-east-1.amazonaws.com`
+A solução está disponível para testes e pode ser utilizada como uma REST API através do URL base `https://86u8vj4102.execute-api.sa-east-1.amazonaws.com`
 
 | Método   | Endpoint         | _Payload_                                      | Descrição                                                        |
 | -------- | ---------------- | ---------------------------------------------- | ---------------------------------------------------------------- |
-| `POST`   | `/employee`      | _Body em JSON_ <sup>[*]</sup>                  | Cadastra um funcionário. O ID criado no registro será retornado. |
+| `POST`   | `/employee`      | _Body em JSON_ <sup>[1]</sup>                  | Cadastra um funcionário. O ID criado no registro será retornado. |
 | `GET`    | `/employee/{id}` | _Path parameter_                               | Consulta os dados de um funcionário, dado o seu ID.              |
 | `GET`    | `/employee`      |                                                | Retorna todos os funcionários cadastrados.                       |
-| `PUT`    | `/employee/{id}` | _Path parameter e body em JSON_ <sup>[*]</sup> | Atualiza o cadastro completo de um funcionário, dado o seu ID.   |
+| `PUT`    | `/employee/{id}` | _Path parameter e body em JSON_ <sup>[1]</sup> | Atualiza o cadastro completo de um funcionário, dado o seu ID.   |
 | `DELETE` | `/employee/{id}` | _Path parameter_                               | Remove o cadastro de um funcionário, dado o seu ID.              |
 
 ```json
-// [*] - Exemplo de body em JSON que deve ser passado a alguns endpoints:
-// Seguindo o proposto pelo desafio, a API está preparada para tratar o recebimento dos atributos "nome", "idade" e "cargo".
+// [1] - Exemplo de body em JSON que deve ser passado a alguns endpoints:
 {
     "nome": "William Gonçalves",
     "idade": 35,
     "cargo": "Desenvolvedor de software"
 }
+
+/* Seguindo o proposto pelo desafio, a API está preparada para tratar o
+recebimento dos atributos "nome", "idade" e "cargo". */
 ```
 
 ### Evidências da solução em funcionamento
