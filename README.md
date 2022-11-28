@@ -6,7 +6,7 @@
 
 ### API
 
-A solução está disponível para testes e pode ser utilizada como uma REST API através do URL base `https://niw8ecbn5i.execute-api.sa-east-1.amazonaws.com`
+A solução está disponível para testes e pode ser utilizada como uma REST API através do URL base ***https://niw8ecbn5i.execute-api.sa-east-1.amazonaws.com*** .
 
 | Método   | Endpoint         | _Payload_                                      | Descrição                                                        |
 | -------- | ---------------- | ---------------------------------------------- | ---------------------------------------------------------------- |
