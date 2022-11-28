@@ -57,7 +57,7 @@ Ainda, o arquivo _openapi.yaml_, embora básico, pode ajudar a realizar testes d
 ## Como implantar este projeto na AWS
 
 1. Ter uma conta na AWS;
-2. Instalar globalmente o Serverless Framework, por exemplo através do comando `npm install -g serverless` (`sudo` talvez seja requido);
+2. Instalar globalmente o Serverless Framework, por exemplo através do comando `npm install -g serverless` (`sudo` talvez seja requerido);
 3. Criar um usuário de "acesso programático", via AWS IAM, para o uso do Serverless Framework. Registrar então as suas credenciais nele, de maneira parecida ao comando `serverless config credentials -o --provider aws --key=ACCESS_KEY_ID --secret SECRET_ACCESS_KEY`, substituindo as informações conforme fornecidas pela AWS;
 4. Após o clone e dentro do diretório deste projeto, instalar este projeto com o comando `npm install`;
    4.1. Se desejado, após a instalação, testes unitários e de integração básicos podem ser executados através do comando `npm test`.
@@ -70,13 +70,13 @@ Ainda, o arquivo _openapi.yaml_, embora básico, pode ajudar a realizar testes d
 ## Observações
 
 1. O identificador do funcionário ou é gerado e atribuído no momento de sua criação, ou precisa ser informado no URL para algumas requisições (ver endpoints acima), portanto nunca precisará ser passado nos corpos de requisições como JSON.
-2. Para testar os endpoints criados na AWS, você pode usar as aplicações Postman ou Insomnia. Há também plataformas do tipo, para testes de endpoints, que rodam diretamente navegador.
+2. Para testar os endpoints criados na AWS, você pode usar as aplicações Postman ou Insomnia. Há também plataformas do tipo, para testes de endpoints, que rodam diretamente no navegador.
 
 ## Decisões no desenvolvimento
 
 ### Organização do código
 
-Como proposto, uma visão de "arquitetura limpa" foi implementada e está refletida na organização das classes e das pastas do projeto. Exceto pelo pontos de entrada e de infraestrutura, mais "sujos", as demais classes confiam na injeção de suas dependências e buscou-se uma separação do código em camadas, bem como o isolamento do "core" do negócio, dentro do que foi necessário.
+Como proposto, uma visão de "arquitetura limpa" foi implementada e está refletida na organização das classes e das pastas do projeto. Exceto pelos pontos de entrada e de infraestrutura, mais "sujos", as demais classes confiam na injeção de suas dependências e buscou-se uma separação do código em camadas, bem como o isolamento do "core" do negócio, dentro do que foi necessário.
 
 Como a solução é pequena, não foi necessário o uso do TypeScript para a criação e a implementação de interfaces, por exemplo para indicar a dependência de um "repositório". Usou-se o dinamismo do JavaScript, mas, sem dúvidas, o uso do TypeScript traria benefícios ao desenvolvimento e mais confiança na execução se o projeto fosse mais extenso.
 
