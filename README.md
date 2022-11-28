@@ -30,6 +30,7 @@ Por ser flexível a muitos provedores serverless e permitir o provisionamento "p
 
 ```json
 // [*] - Exemplo de body em JSON que deve ser passado a alguns endpoints:
+// Seguindo o proposto pelo desafio, a API está preparada para tratar o recebimento dos atributos "nome", "idade" e "cargo".
 {
     "nome": "William Gonçalves",
     "idade": 35,
@@ -51,9 +52,15 @@ Por ser flexível a muitos provedores serverless e permitir o provisionamento "p
 **Atualização das informações de um funcionário:**
 <img alt="Screenshot" title="Atualização do funcionário" src="screenshots/atualização.png" />
 
-**Removação do funcionário e busca após remoção:**
+**Remoção de um funcionário e busca após remoção:**
+<img alt="Screenshot" title="DynamoDB antes da remoção" src="screenshots/dynamodb antes remoção.png" />
 <img alt="Screenshot" title="Remoção do funcionário" src="screenshots/remoção.png" />
+<img alt="Screenshot" title="DynamoDB após a remoção" src="screenshots/dynamodb após remoção.png" />
+
 <img alt="Screenshot" title="Busca por funcionário removido" src="screenshots/busca após remoção.png" />
+
+**"Bad requests" são lançados ao usuário (neste caso, erro no nome de um atributo JSON):**
+<img alt="Screenshot" title="Bad request" src="screenshots/bad request.png" />
 
 ## Como implantar este projeto na AWS
 
