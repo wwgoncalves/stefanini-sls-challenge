@@ -2,20 +2,6 @@
 
 > Solução serverless AWS para o processo seletivo da Stefanini.<br><br>_O desafio proposto está disponível em: https://github.com/dornellas13/serverless-challenge_
 
-## Decisões
-
-### Uso do NoSQL DynamoDB como banco de dados
-
-O banco de dados DynamoDB foi escolhido por dar flexibilidade ao schema, permitindo salvar dados no formato JSON praticamente de maneira direta, ser de fácil integração utilizando o AWS-SDK e muito utilizado em soluções serverless da AWS.
-
-### Disponibilização da função lambda através de rotas configuradas no API Gateway
-
-Como foi solicitado que apenas uma função lambda permitisse as operações de cadastro, consulta, atualização e deleção, e que estivesse exposta à Internet, foi escolhido disponibilizar rotas à ela através do API Gateway, como se tivéssemos uma REST API disponível.
-
-### Uso do Serverless Framework para o deploy da solução e o provisionamento da infraestrutura na AWS
-
-Por ser flexível a muitos provedores serverless e permitir o provisionamento "programável" de recursos das diversas nuvens, o Serverless Framework foi escolhido para o deploy da solução desenvolvida.
-
 ## Utilização da solução e evidências
 
 A solução está disponível para testes e pode ser utilizada como uma REST API através do URL base `https://86u8vj4102.execute-api.sa-east-1.amazonaws.com`
@@ -28,6 +14,9 @@ A solução está disponível para testes e pode ser utilizada como uma REST API
 | `PUT`    | `/employee/{id}` | _Path parameter e body em JSON_ <sup>[1]</sup> | Atualiza o cadastro completo de um funcionário, dado o seu ID.   |
 | `DELETE` | `/employee/{id}` | _Path parameter_                               | Remove o cadastro de um funcionário, dado o seu ID.              |
 
+Seguindo o proposto pelo desafio, a API está preparada para tratar o
+recebimento dos atributos "nome", "idade" e "cargo".
+
 ```json
 // [1] - Exemplo de body em JSON que deve ser passado a alguns endpoints:
 {
@@ -35,9 +24,6 @@ A solução está disponível para testes e pode ser utilizada como uma REST API
     "idade": 35,
     "cargo": "Desenvolvedor de software"
 }
-
-/* Seguindo o proposto pelo desafio, a API está preparada para tratar o
-recebimento dos atributos "nome", "idade" e "cargo". */
 ```
 
 ### Evidências da solução em funcionamento
@@ -81,6 +67,20 @@ recebimento dos atributos "nome", "idade" e "cargo". */
 
 1. O identificador do funcionário ou é gerado e atribuído no momento de sua criação, ou precisa ser informado no URL para algumas requisições (ver endpoints acima), portanto nunca precisará ser passado nos corpos de requisições como JSON.
 2. Para testar os endpoints criados na AWS, você pode usar as aplicações Postman ou Insomnia. Há também plataformas do tipo, para testes de endpoints, que rodam diretamente navegador.
+
+## Decisões para o desenvolvimento
+
+### Uso do NoSQL DynamoDB como banco de dados
+
+O banco de dados DynamoDB foi escolhido por dar flexibilidade ao schema, permitindo salvar dados no formato JSON praticamente de maneira direta, ser de fácil integração utilizando o AWS-SDK e muito utilizado em soluções serverless da AWS.
+
+### Disponibilização da função lambda através de rotas configuradas no API Gateway
+
+Como foi solicitado que apenas uma função lambda permitisse as operações de cadastro, consulta, atualização e deleção, e que estivesse exposta à Internet, foi escolhido disponibilizar rotas à ela através do API Gateway, como se tivéssemos uma REST API disponível.
+
+### Uso do Serverless Framework para o deploy da solução e o provisionamento da infraestrutura na AWS
+
+Por ser flexível a muitos provedores serverless e permitir o provisionamento "programável" de recursos das diversas nuvens, o Serverless Framework foi escolhido para o deploy da solução desenvolvida.
 
 ## Importante
 
