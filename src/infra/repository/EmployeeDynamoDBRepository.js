@@ -4,9 +4,12 @@ const {
     GetItemCommand,
     ScanCommand,
     UpdateItemCommand,
+    DeleteItemCommand,
 } = require("@aws-sdk/client-dynamodb");
+
 const { marshall, unmarshall } = require("@aws-sdk/util-dynamodb");
 const { v4: uuidv4 } = require("uuid");
+
 const Employee = require("../../core/entity/Employee");
 
 const region = process.env.DYNAMODB_EMPLOYEE_TABLE_REGION;
@@ -108,5 +111,14 @@ module.exports = class EmployeeDynamoDBRepository {
             employeeInfo.age,
             employeeInfo.position
         );
+    }
+
+    async deleteById(id) {
+        const input = {
+            Key: marshall({ id }),
+            TableName: tableName,
+        };
+
+        await this.#client.send(new DeleteItemCommand(input));
     }
 };

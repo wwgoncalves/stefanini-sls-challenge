@@ -2,6 +2,7 @@ const RegisterEmployee = require("../core/usecase/RegisterEmployee");
 const FindEmployee = require("../core/usecase/FindEmployee");
 const FetchAllEmployees = require("../core/usecase/FetchAllEmployees");
 const UpdateEmployee = require("../core/usecase/UpdateEmployee");
+const RemoveEmployee = require("../core/usecase/RemoveEmployee");
 
 module.exports = class EmployeeController {
     #employeeRepository;
@@ -70,5 +71,11 @@ module.exports = class EmployeeController {
             idade: employee.age,
             cargo: employee.position,
         };
+    }
+
+    async deleteEmployee(pathParams) {
+        const removeEmployee = new RemoveEmployee(this.#employeeRepository);
+        const employeeId = pathParams.id;
+        await removeEmployee.execute(employeeId);
     }
 };

@@ -2,7 +2,7 @@ const Employee = require("../../../../src/core/entity/Employee");
 const FetchAllEmployees = require("../../../../src/core/usecase/FetchAllEmployees");
 const EmployeeMemoryRepository = require("../../../../src/infra/repository/EmployeeMemoryRepository");
 
-it("Should correctly find an employee", async () => {
+it("Should correctly fetch all employees registered", async () => {
     const employeeRepository = new EmployeeMemoryRepository();
     const fetchAllEmployees = new FetchAllEmployees(employeeRepository);
     await employeeRepository.save(

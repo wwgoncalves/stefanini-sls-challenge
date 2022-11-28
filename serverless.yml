@@ -40,6 +40,9 @@ functions:
             - httpApi:
                   path: /employee/{id}
                   method: put
+            - httpApi:
+                  path: /employee/{id}
+                  method: delete
 
 resources:
     Resources:

@@ -4,10 +4,14 @@ const EmployeeController = require("./controller/EmployeeController");
 const EmployeeDynamoDBRepository = require("./infra/repository/EmployeeDynamoDBRepository");
 
 const buildResponseObject = (statusCode, body) => {
-    return {
-        statusCode,
-        body: JSON.stringify(body, null, 2),
-    };
+    if (body === undefined) {
+        return { statusCode };
+    } else {
+        return {
+            statusCode,
+            body: JSON.stringify(body, null, 2),
+        };
+    }
 };
 
 module.exports.handle = async (event) => {
@@ -44,6 +48,15 @@ module.exports.handle = async (event) => {
                         JSON.parse(event.body)
                     );
                     return buildResponseObject(200, employee);
+                }
+                break;
+
+            case "DELETE":
+                if (event.pathParameters && event.pathParameters.id) {
+                    await employeeController.deleteEmployee(
+                        event.pathParameters
+                    );
+                    return buildResponseObject(204);
                 }
                 break;
         }
