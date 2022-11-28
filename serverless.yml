@@ -18,6 +18,8 @@ provider:
     environment:
         DYNAMODB_EMPLOYEE_TABLE_NAME: "${self:service}-employee"
         DYNAMODB_EMPLOYEE_TABLE_REGION: ${self:provider.region}
+    httpApi:
+        cors: true
 
 package:
     patterns:
