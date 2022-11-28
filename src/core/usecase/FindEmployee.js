@@ -6,7 +6,6 @@ module.exports = class FindEmployee {
     }
 
     async execute(employeeId) {
-        const employee = await this.#employeeRepository.findById(employeeId);
-        return employee;
+        return this.#employeeRepository.findById(employeeId);
     }
 };

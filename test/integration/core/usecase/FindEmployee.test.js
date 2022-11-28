@@ -14,7 +14,10 @@ it("Should correctly find an employee", async () => {
         )
     );
 
-    const retrievedEmployee = await findEmployee.execute(
+    let retrievedEmployee = await findEmployee.execute("an-fake-id");
+    expect(retrievedEmployee).toBeUndefined();
+
+    retrievedEmployee = await findEmployee.execute(
         "a7fa2be1-086f-4eya-b20b-81te2633ee5f"
     );
     expect(retrievedEmployee.name).toEqual("Lúcia Mattos");

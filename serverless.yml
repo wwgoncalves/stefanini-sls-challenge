@@ -23,6 +23,7 @@ package:
     patterns:
         - "!README.md"
         - "!test/**"
+        - "!screenshots/**"
 
 functions:
     main:

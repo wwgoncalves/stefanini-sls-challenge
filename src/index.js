@@ -3,7 +3,7 @@
 const EmployeeController = require("./controller/EmployeeController");
 const EmployeeDynamoDBRepository = require("./infra/repository/EmployeeDynamoDBRepository");
 
-const buildResponseObject = (statusCode, body) => {
+const buildResponseObject = (statusCode, body = undefined) => {
     if (body === undefined) {
         return { statusCode };
     } else {
@@ -31,7 +31,12 @@ module.exports.handle = async (event) => {
                     const employee = await employeeController.findEmployee(
                         event.pathParameters
                     );
-                    return buildResponseObject(200, employee);
+
+                    if (employee) {
+                        return buildResponseObject(200, employee);
+                    } else {
+                        return buildResponseObject(404);
+                    }
                 } else {
                     const employees = await employeeController.fetchEmployees();
                     return buildResponseObject(200, employees);

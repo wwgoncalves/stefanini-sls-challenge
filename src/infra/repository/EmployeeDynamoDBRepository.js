@@ -48,13 +48,17 @@ module.exports = class EmployeeDynamoDBRepository {
         };
 
         const output = await this.#client.send(new GetItemCommand(input));
-        const employeeInfo = unmarshall(output.Item);
-        return new Employee(
-            employeeInfo.id,
-            employeeInfo.name,
-            employeeInfo.age,
-            employeeInfo.position
-        );
+        if (output && output.Item) {
+            const employeeInfo = unmarshall(output.Item);
+            return new Employee(
+                employeeInfo.id,
+                employeeInfo.name,
+                employeeInfo.age,
+                employeeInfo.position
+            );
+        } else {
+            return undefined;
+        }
     }
 
     async findAll() {

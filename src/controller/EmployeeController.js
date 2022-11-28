@@ -4,6 +4,21 @@ const FetchAllEmployees = require("../core/usecase/FetchAllEmployees");
 const UpdateEmployee = require("../core/usecase/UpdateEmployee");
 const RemoveEmployee = require("../core/usecase/RemoveEmployee");
 
+class EmployeeResponseDTO {
+    static create(employee) {
+        if (!employee) {
+            return undefined;
+        }
+
+        return {
+            id: employee.id,
+            nome: employee.name,
+            idade: employee.age,
+            cargo: employee.position,
+        };
+    }
+}
+
 module.exports = class EmployeeController {
     #employeeRepository;
 
@@ -19,12 +34,7 @@ module.exports = class EmployeeController {
             body.cargo
         );
 
-        return {
-            id: employee.id,
-            nome: employee.name,
-            idade: employee.age,
-            cargo: employee.position,
-        };
+        return EmployeeResponseDTO.create(employee);
     }
 
     async findEmployee(pathParams) {
@@ -32,12 +42,7 @@ module.exports = class EmployeeController {
         const employeeId = pathParams.id;
         const employee = await findEmployee.execute(employeeId);
 
-        return {
-            id: employee.id,
-            nome: employee.name,
-            idade: employee.age,
-            cargo: employee.position,
-        };
+        return EmployeeResponseDTO.create(employee);
     }
 
     async fetchEmployees() {
@@ -46,12 +51,9 @@ module.exports = class EmployeeController {
         );
         let employees = await fetchAllEmployees.execute();
 
-        employees = employees.map((employee) => ({
-            id: employee.id,
-            nome: employee.name,
-            idade: employee.age,
-            cargo: employee.position,
-        }));
+        employees = employees.map((employee) =>
+            EmployeeResponseDTO.create(employee)
+        );
 
         return employees;
     }
@@ -65,12 +67,7 @@ module.exports = class EmployeeController {
             body.cargo
         );
 
-        return {
-            id: employee.id,
-            nome: employee.name,
-            idade: employee.age,
-            cargo: employee.position,
-        };
+        return EmployeeResponseDTO.create(employee);
     }
 
     async deleteEmployee(pathParams) {
