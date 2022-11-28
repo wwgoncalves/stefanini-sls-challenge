@@ -4,6 +4,8 @@
 
 ## Utilização da solução e evidências
 
+### API
+
 A solução está disponível para testes e pode ser utilizada como uma REST API através do URL base `https://86u8vj4102.execute-api.sa-east-1.amazonaws.com`
 
 | Método   | Endpoint         | _Payload_                                      | Descrição                                                        |
@@ -25,6 +27,8 @@ recebimento dos atributos "nome", "idade" e "cargo".
     "cargo": "Desenvolvedor de software"
 }
 ```
+
+Ainda, o arquivo _openapi.yaml_, embora básico, pode ajudar a realizar testes da solução, por exemplo através do site https://editor.swagger.io/.
 
 ### Evidências da solução em funcionamento
 

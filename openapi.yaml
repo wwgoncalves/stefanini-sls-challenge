@@ -1,0 +1,68 @@
+openapi: "3.0.1"
+info:
+    title: "dev-stefanini-sls-challenge"
+    version: "2022-11-28 04:30:25UTC"
+servers:
+    - url: "https://86u8vj4102.execute-api.sa-east-1.amazonaws.com/{basePath}"
+      variables:
+          basePath:
+              default: ""
+tags:
+    - name: "aws:cloudformation:stack-name"
+    - name: "aws:cloudformation:logical-id"
+    - name: "aws:cloudformation:stack-id"
+    - name: "STAGE"
+paths:
+    /employee/{id}:
+        get:
+            responses:
+                default:
+                    description: "Busca de funcionário pelo id"
+        put:
+            responses:
+                default:
+                    description: "Atualização de funcionário pelo id"
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                nome:
+                                    type: string
+                                idade:
+                                    type: number
+                                cargo:
+                                    type: string
+        delete:
+            responses:
+                default:
+                    description: "Remoção de funcionário pelo id"
+        parameters:
+            - name: "id"
+              in: "path"
+              description: "Id do funcionário"
+              required: true
+              schema:
+                  type: "string"
+    /employee:
+        get:
+            responses:
+                default:
+                    description: "Busca de todos os funcionários registrados"
+        post:
+            responses:
+                default:
+                    description: "Registro de um novo funcionário"
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                nome:
+                                    type: string
+                                idade:
+                                    type: number
+                                cargo:
+                                    type: string
