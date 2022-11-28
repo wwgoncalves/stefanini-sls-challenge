@@ -94,6 +94,7 @@ module.exports = class EmployeeDynamoDBRepository {
             Key: marshall({ id: employee.id }),
             TableName: tableName,
             UpdateExpression: "SET #name = :n, age = :a, #position = :p", // All fields are replaced
+            ConditionExpression: "attribute_exists(id)",
             ExpressionAttributeNames: {
                 // Because "name" and "position" are DynamoDB reserved words
                 "#name": "name",
@@ -107,14 +108,21 @@ module.exports = class EmployeeDynamoDBRepository {
             ReturnValues: "ALL_NEW",
         };
 
-        const output = await this.#client.send(new UpdateItemCommand(input));
-        const employeeInfo = unmarshall(output.Attributes);
-        return new Employee(
-            employeeInfo.id,
-            employeeInfo.name,
-            employeeInfo.age,
-            employeeInfo.position
-        );
+        try {
+            const output = await this.#client.send(
+                new UpdateItemCommand(input)
+            );
+            const employeeInfo = unmarshall(output.Attributes);
+            return new Employee(
+                employeeInfo.id,
+                employeeInfo.name,
+                employeeInfo.age,
+                employeeInfo.position
+            );
+        } catch (error) {
+            // If condition expression evaluates to false, i.e. employee id was not found
+            return undefined;
+        }
     }
 
     async deleteById(id) {

@@ -52,7 +52,12 @@ module.exports.handle = async (event) => {
                         event.pathParameters,
                         JSON.parse(event.body)
                     );
-                    return buildResponseObject(200, employee);
+
+                    if (employee) {
+                        return buildResponseObject(200, employee);
+                    } else {
+                        return buildResponseObject(404);
+                    }
                 }
                 break;
 

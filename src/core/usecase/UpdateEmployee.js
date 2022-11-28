@@ -9,7 +9,6 @@ module.exports = class UpdateEmployee {
 
     async execute(id, name, age, position) {
         const employee = new Employee(id, name, age, position);
-
         return this.#employeeRepository.update(employee);
     }
 };
